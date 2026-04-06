@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "Mermaid Spells",
+    "slug": "mermaid-spells",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0B0E2C"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.mermaidspells.app",
+      "infoPlist": {
+        "UIStatusBarStyle": "UIStatusBarStyleLightContent"
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0B0E2C"
+      },
+      "package": "com.mermaidspells.app",
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-av",
+      "expo-font"
+    ]
+  }
+}
