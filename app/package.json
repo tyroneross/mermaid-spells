@@ -6,22 +6,31 @@
     "start": "expo start",
     "android": "expo run:android",
     "ios": "expo run:ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "typecheck": "tsc --noEmit",
+    "validate:learning": "node scripts/validate-learning-data.cjs",
+    "validate:session": "node scripts/validate-session-builder.cjs",
+    "validate:voice": "node scripts/validate-voice-targets.cjs"
   },
   "dependencies": {
     "@expo-google-fonts/kalam": "^0.4.1",
+    "@expo/metro-runtime": "~6.1.2",
     "@react-native-async-storage/async-storage": "2.2.0",
-    "expo": "~54.0.33",
+    "expo": "~54.0.34",
     "expo-av": "~16.0.8",
     "expo-font": "~14.0.11",
     "expo-haptics": "~15.0.8",
     "expo-linear-gradient": "~15.0.8",
+    "expo-speech-recognition": "^3.1.3",
     "expo-status-bar": "~3.0.9",
     "react": "19.1.0",
+    "react-dom": "19.1.0",
     "react-native": "0.81.5",
     "react-native-gesture-handler": "~2.28.0",
     "react-native-reanimated": "~4.1.1",
     "react-native-svg": "15.12.1",
+    "react-native-web": "^0.21.0",
+    "react-native-worklets": "0.5.1",
     "zustand": "^5.0.11"
   },
   "devDependencies": {

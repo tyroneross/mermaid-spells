@@ -13,7 +13,7 @@
       "backgroundColor": "#0B0E2C"
     },
     "ios": {
-      "supportsTablet": false,
+      "supportsTablet": true,
       "bundleIdentifier": "com.mermaidspells.app",
       "infoPlist": {
         "UIStatusBarStyle": "UIStatusBarStyleLightContent"
@@ -32,6 +32,16 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
+      [
+        "expo-speech-recognition",
+        {
+          "microphonePermission": "Allow Mermaid Spells to listen while your child practices letter sounds.",
+          "speechRecognitionPermission": "Allow Mermaid Spells to check spoken letter sounds.",
+          "androidSpeechServicePackages": [
+            "com.google.android.googlequicksearchbox"
+          ]
+        }
+      ],
       "expo-av",
       "expo-font"
     ]

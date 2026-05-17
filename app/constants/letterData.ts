@@ -47,36 +47,6 @@ export const letterData: Record<
   z: { word: "zebra", emoji: "\u{1F993}", phonetic: "/z/" },
 };
 
-export const allLetters = Object.keys(letterData);
-
-export interface LevelConfig {
-  name: string;
-  emoji: string;
-  count: number;
-  choices: number;
-}
-
-// Levels follow Montessori phonetic groups for pedagogically meaningful progression
-export const LEVELS: LevelConfig[] = [
-  { name: "Tide Pool", emoji: "\u{1F30A}", count: 8, choices: 2 },    // Groups 1-2
-  { name: "Coral Garden", emoji: "\u{1F420}", count: 8, choices: 3 },  // Groups 3-4
-  { name: "Deep Ocean", emoji: "\u{1F40B}", count: 10, choices: 4 },   // Groups 5-6
-];
-
-export function shuffle<T>(arr: T[]): T[] {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-
-export function getDistractors(correct: string, count: number): string[] {
-  const pool = allLetters.filter((l) => l !== correct);
-  return shuffle(pool).slice(0, count);
-}
-
 // Tail gradient colors per level
 export const TAIL_COLORS: [string, string, string][] = [
   ["#26D0CE", "#1CB5E0", "#0E7490"], // Teal

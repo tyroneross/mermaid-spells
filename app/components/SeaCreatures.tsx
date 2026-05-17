@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, StyleSheet, Dimensions } from "react-native";
+import { View, StyleSheet, useWindowDimensions } from "react-native";
 import Svg, { Path, Ellipse, Rect, Line, G } from "react-native-svg";
 import Animated, {
   useSharedValue,
@@ -12,8 +12,6 @@ import Animated, {
   interpolate,
 } from "react-native-reanimated";
 
-const { width: SW, height: SH } = Dimensions.get("window");
-
 function Fish({
   color,
   size,
@@ -21,6 +19,7 @@ function Fish({
   delay,
   duration,
   direction,
+  screenWidth,
 }: {
   color: string;
   size: number;
@@ -28,6 +27,7 @@ function Fish({
   delay: number;
   duration: number;
   direction: 1 | -1;
+  screenWidth: number;
 }) {
   const progress = useSharedValue(0);
 
@@ -43,8 +43,8 @@ function Fish({
   }, []);
 
   const animStyle = useAnimatedStyle(() => {
-    const startX = direction === 1 ? -size * 2 : SW + size;
-    const endX = direction === 1 ? SW + size : -size * 2;
+    const startX = direction === 1 ? -size * 2 : screenWidth + size;
+    const endX = direction === 1 ? screenWidth + size : -size * 2;
     const tx = interpolate(progress.value, [0, 1], [startX, endX]);
     const wobble = Math.sin(progress.value * Math.PI * 8) * 4;
     return {
@@ -80,7 +80,7 @@ function Fish({
   );
 }
 
-function LightRays() {
+function LightRays({ screenWidth, screenHeight }: { screenWidth: number; screenHeight: number }) {
   const opacity = useSharedValue(0.04);
 
   useEffect(() => {
@@ -100,14 +100,18 @@ function LightRays() {
 
   return (
     <Animated.View style={[styles.raysContainer, animStyle]} pointerEvents="none">
-      <Svg width={SW} height={SH * 0.5} viewBox={`0 0 ${SW} ${SH * 0.5}`}>
+      <Svg
+        width={screenWidth}
+        height={screenHeight * 0.5}
+        viewBox={`0 0 ${screenWidth} ${screenHeight * 0.5}`}
+      >
         {[0.15, 0.35, 0.6, 0.8].map((pos, i) => (
           <G key={i}>
             <Line
-              x1={pos * SW}
+              x1={pos * screenWidth}
               y1={0}
-              x2={pos * SW - 40 + i * 20}
-              y2={SH * 0.5}
+              x2={pos * screenWidth - 40 + i * 20}
+              y2={screenHeight * 0.5}
               stroke="rgba(255,255,255,0.5)"
               strokeWidth={20 + i * 8}
               strokeLinecap="round"
@@ -174,12 +178,38 @@ function Coral() {
 }
 
 export default function SeaCreatures() {
+  const { width, height } = useWindowDimensions();
+
   return (
     <View style={StyleSheet.absoluteFill} pointerEvents="none">
-      <LightRays />
-      <Fish color="#FF8C42" size={16} y={SH * 0.55} delay={0} duration={12000} direction={1} />
-      <Fish color="#5DADE2" size={12} y={SH * 0.65} delay={4000} duration={15000} direction={-1} />
-      <Fish color="#FF6B8A" size={10} y={SH * 0.45} delay={7000} duration={18000} direction={1} />
+      <LightRays screenWidth={width} screenHeight={height} />
+      <Fish
+        color="#FF8C42"
+        size={16}
+        y={height * 0.55}
+        delay={0}
+        duration={12000}
+        direction={1}
+        screenWidth={width}
+      />
+      <Fish
+        color="#5DADE2"
+        size={12}
+        y={height * 0.65}
+        delay={4000}
+        duration={15000}
+        direction={-1}
+        screenWidth={width}
+      />
+      <Fish
+        color="#FF6B8A"
+        size={10}
+        y={height * 0.45}
+        delay={7000}
+        duration={18000}
+        direction={1}
+        screenWidth={width}
+      />
       <Coral />
     </View>
   );

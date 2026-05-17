@@ -109,6 +109,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingHorizontal: 32,
     zIndex: 1,
+    width: "100%",
+    maxWidth: 440,
+    alignSelf: "center",
   },
   icon: {
     fontSize: 64,

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, StyleSheet, Dimensions } from "react-native";
+import { View, StyleSheet, useWindowDimensions } from "react-native";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -9,8 +9,6 @@ import Animated, {
   Easing,
   interpolate,
 } from "react-native-reanimated";
-
-const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
 interface BubbleConfig {
   left: string;
@@ -28,7 +26,7 @@ const BUBBLES: BubbleConfig[] = Array.from({ length: 14 }, (_, i) => ({
   opacity: 0.06 + (i % 3) * 0.03,
 }));
 
-function Bubble({ config }: { config: BubbleConfig }) {
+function Bubble({ config, screenHeight }: { config: BubbleConfig; screenHeight: number }) {
   const progress = useSharedValue(0);
 
   useEffect(() => {
@@ -43,7 +41,7 @@ function Bubble({ config }: { config: BubbleConfig }) {
   }, []);
 
   const animatedStyle = useAnimatedStyle(() => {
-    const translateY = interpolate(progress.value, [0, 1], [0, -(SCREEN_HEIGHT + 40)]);
+    const translateY = interpolate(progress.value, [0, 1], [0, -(screenHeight + 40)]);
     const scale = interpolate(progress.value, [0, 1], [1, 0.2]);
     const opacity = interpolate(progress.value, [0, 0.1, 0.9, 1], [0, config.opacity, config.opacity * 0.3, 0]);
     return {
@@ -73,10 +71,12 @@ function Bubble({ config }: { config: BubbleConfig }) {
 }
 
 export default function Bubbles() {
+  const { height } = useWindowDimensions();
+
   return (
     <View style={styles.container} pointerEvents="none">
       {BUBBLES.map((config, i) => (
-        <Bubble key={i} config={config} />
+        <Bubble key={i} config={config} screenHeight={height} />
       ))}
     </View>
   );
