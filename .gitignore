@@ -1,2 +1,5 @@
 *.DS_Store
 native/**/.build/
+
+# build-loop runtime state (local only)
+.build-loop/
