@@ -3,3 +3,6 @@ native/**/.build/
 
 # build-loop runtime state (local only)
 .build-loop/
+
+# bookmark session snapshots (local only)
+app/.claude/bookmarks/
